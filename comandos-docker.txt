@@ -1,0 +1,30 @@
+# Rodar container Postgre na versão 18.0
+docker run --name librarydb -p 5432:5432 -e POSTGRES_PASSWORD=postgres -e POSTGRES_USER=postgres -e POSTGRES_DB=library postgres:18.0
+
+# Rodar pgAdmin4 na versão 9.9
+docker run --name pgadmin4 -p 15432:80 -e PGADMIN_DEFAULT_EMAIL=admin@admin.com -e PGADMIN_DEFAULT_PASSWORD=admin dpage/pgadmin4:9.9
+
+# Criar uma network
+docker network create library-network
+id que foi criado: 04d08ab18d0b5fc10136928668b854735aeffed4680804aa03c79dc3517364f9
+
+# Rodar container Postgre na versão 18.0 apontando para a network criada e rodando no background
+docker run --name librarydb -p 5432:5432 -e POSTGRES_PASSWORD=postgres -e POSTGRES_USER=postgres -e POSTGRES_DB=library -d --network library-network postgres:18.0
+
+# Rodar pgAdmin4 na versão 9.9 apontando para a network criada e rodando no background
+ docker run --name pgadmin4 -p 15432:80 -e PGADMIN_DEFAULT_EMAIL=admin@admin.com -e PGADMIN_DEFAULT_PASSWORD=admin -d --network library-network dpage/pgadmin4:9.9
+
+# Conferir processos atuais do docker / ver quais imagens estão rodando
+docker ps
+
+# Conferir processos do docker que estão parados
+docker ps -a
+
+# Parar de rodar um container
+docker stop "+ nome ou id do container"
+
+# Excluir um container
+docker container rm "+ nome ou id do container"
+
+# Checar a porta
+netstat -aof | findstr 5432
