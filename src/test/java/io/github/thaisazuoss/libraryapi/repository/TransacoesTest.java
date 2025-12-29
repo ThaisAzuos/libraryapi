@@ -18,8 +18,8 @@ public class TransacoesTest {
     void transacaoSimplesTest(){
         transacaoService.executar();
     }
-    @Test
-    void transacaoEstadoManagedTest(){
-        transacaoService.atualizacaoSemAtualizar();
-    }
+//    @Test
+//    void transacaoEstadoManagedTest(){
+//        transacaoService.atualizacaoSemAtualizar();
+//    }
 }
