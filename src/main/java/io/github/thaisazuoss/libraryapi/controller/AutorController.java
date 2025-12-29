@@ -51,4 +51,15 @@ public class AutorController {
 
         }
     }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<Void> deletar(@PathVariable("id") String id){
+        var idAutor = UUID.fromString(id);
+        Optional<Autor> autor = autorService.buscarAutor(idAutor);
+        if (autor.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
+        autorService.deletar(idAutor);
+        return ResponseEntity.noContent().build();
+    }
 }
