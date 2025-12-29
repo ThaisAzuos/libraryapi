@@ -1,10 +1,10 @@
-package io.github.thaisazuoss.libraryapi.controller.dto;
+package io.github.thaisazuoss.libraryapi.controller.dto.request;
 
 import io.github.thaisazuoss.libraryapi.model.Autor;
 
 import java.time.LocalDate;
 
-public record AutorDTO(
+public record AutorRequestDTO(
         String nome,
         LocalDate dataNascimento,
         String nacionalidade) {
