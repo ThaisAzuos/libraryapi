@@ -44,4 +44,10 @@ public class AutorService {
         }
         return autorRepository.findAll();
     }
+    public void atualizar(Autor autor){
+        if (autor.getId() == null){
+            throw new IllegalArgumentException("Não é possível atualizar um autor que não existe na base!");
+        }
+        autorRepository.save(autor);
+    }
 }
