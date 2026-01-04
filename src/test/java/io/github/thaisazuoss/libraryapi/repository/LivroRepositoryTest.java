@@ -34,7 +34,7 @@ class LivroRepositoryTest {
         livro.setGenero(GeneroLivro.ROMANCE);
         livro.setDataPublicacao(LocalDate.of(1899, 1,30));
 
-        var autor = autorRepository.findById(UUID.fromString("180d6328-3e36-4932-a9c2-75b9ce34d058")).orElse(null);
+        var autor = autorRepository.findById(UUID.fromString("f4915aab-a912-4329-ac9a-8706a559592a")).orElse(null);
 
         livro.setAutor(autor);
         livroRepository.save(livro);
