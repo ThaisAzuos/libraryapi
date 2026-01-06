@@ -5,6 +5,7 @@ import io.github.thaisazuoss.libraryapi.model.GeneroLivro;
 import io.github.thaisazuoss.libraryapi.model.Livro;
 import io.github.thaisazuoss.libraryapi.repository.AutorRepository;
 import io.github.thaisazuoss.libraryapi.repository.LivroRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,13 +15,14 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 @Service
+@RequiredArgsConstructor
 public class TransacaoService {
 
-    @Autowired
-    private AutorRepository autorRepository;
 
-    @Autowired
-    private LivroRepository livroRepository;
+    private final AutorRepository autorRepository;
+
+
+    private final LivroRepository livroRepository;
 
     @Transactional
     public void atualizacaoSemAtualizar(){

@@ -7,6 +7,7 @@ import io.github.thaisazuoss.libraryapi.exceptions.OperacaoNaoPermitidaException
 import io.github.thaisazuoss.libraryapi.exceptions.RegistroDuplicadoException;
 import io.github.thaisazuoss.libraryapi.model.Autor;
 import io.github.thaisazuoss.libraryapi.service.AutorService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,10 +21,11 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("autores")
+@RequiredArgsConstructor
 public class AutorController {
 
-    @Autowired
-    public AutorService autorService;
+
+    private final AutorService autorService;
 
     @PostMapping
     public ResponseEntity<?> salvar(@RequestBody AutorRequestDTO autorRequestDTO){
@@ -111,7 +113,7 @@ public class AutorController {
             autorService.atualizar(autor);
 
             return ResponseEntity.noContent().build();
-        }catch (RegistroDuplicadoException e){
+        } catch (RegistroDuplicadoException e){
             var erroDto = ErroResposta.respostaConflito(e.getMessage());
             return ResponseEntity.status(erroDto.status()).body(erroDto);
         }

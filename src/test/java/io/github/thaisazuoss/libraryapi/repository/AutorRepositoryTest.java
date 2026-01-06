@@ -4,6 +4,7 @@ import io.github.thaisazuoss.libraryapi.model.Autor;
 import io.github.thaisazuoss.libraryapi.model.GeneroLivro;
 import io.github.thaisazuoss.libraryapi.model.Livro;
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,13 +18,11 @@ import java.util.UUID;
 
 
 @SpringBootTest
+@RequiredArgsConstructor
 class AutorRepositoryTest {
 
-    @Autowired
-    AutorRepository autorRepository;
-
-    @Autowired
-    LivroRepository livroRepository;
+    private final AutorRepository autorRepository;
+    private final LivroRepository livroRepository;
 
 
     @Test
