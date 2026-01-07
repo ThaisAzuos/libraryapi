@@ -87,7 +87,7 @@ public class AutorController {
     public ResponseEntity<List<AutorResponseDTO>> pesquisar(
             @RequestParam(value  = "nome", required = false) String nome,
             @RequestParam(value  = "nacionalidade", required = false) String nacionalidade){
-        List<Autor> listaPesquisa = autorService.pesquisar(nome, nacionalidade);
+        List<Autor> listaPesquisa = autorService.pesquisaByExample(nome, nacionalidade);
         List<AutorResponseDTO> listaDto = listaPesquisa
                 .stream()
                 .map(autor -> new AutorResponseDTO(
