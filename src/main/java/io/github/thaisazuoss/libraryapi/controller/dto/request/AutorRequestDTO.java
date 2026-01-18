@@ -21,11 +21,4 @@ public record AutorRequestDTO(
         @Size(min = 2, max = 50, message = "campo fora do tamanho padrão")
         String nacionalidade) {
 
-    public Autor mapearParaAutor(){
-        Autor autor = new Autor();
-        autor.setNome(nome);
-        autor.setDataNascimento(dataNascimento);
-        autor.setNacionalidade(nacionalidade);
-        return autor;
-    }
 }
