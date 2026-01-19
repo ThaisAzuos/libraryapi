@@ -1,6 +1,9 @@
 package io.github.thaisazuoss.libraryapi.controller.mappers;
 
 import io.github.thaisazuoss.libraryapi.controller.dto.request.LivroRequestDTO;
+import io.github.thaisazuoss.libraryapi.controller.dto.response.AutorResponseDTO;
+import io.github.thaisazuoss.libraryapi.controller.dto.response.LivroResponseDTO;
+import io.github.thaisazuoss.libraryapi.model.Autor;
 import io.github.thaisazuoss.libraryapi.model.Livro;
 import io.github.thaisazuoss.libraryapi.repository.AutorRepository;
 import org.mapstruct.Mapper;
@@ -16,4 +19,5 @@ public abstract class LivroMapper {
     @Mapping(expression = "java( autorRepository.findById(livroRequestDTO.idAutor()).orElse(null) )", target = "autor")
     public abstract Livro toEntity(LivroRequestDTO livroRequestDTO);
 
+    public abstract LivroResponseDTO toDTO(Livro livro);
 }

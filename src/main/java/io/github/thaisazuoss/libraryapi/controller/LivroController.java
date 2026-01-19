@@ -1,7 +1,9 @@
 package io.github.thaisazuoss.libraryapi.controller;
 
 import io.github.thaisazuoss.libraryapi.controller.dto.request.LivroRequestDTO;
+import io.github.thaisazuoss.libraryapi.controller.dto.response.AutorResponseDTO;
 import io.github.thaisazuoss.libraryapi.controller.dto.response.ErroResposta;
+import io.github.thaisazuoss.libraryapi.controller.dto.response.LivroResponseDTO;
 import io.github.thaisazuoss.libraryapi.controller.mappers.LivroMapper;
 import io.github.thaisazuoss.libraryapi.exceptions.RegistroDuplicadoException;
 import io.github.thaisazuoss.libraryapi.model.Livro;
@@ -9,12 +11,10 @@ import io.github.thaisazuoss.libraryapi.service.LivroService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("livros")
@@ -39,5 +39,17 @@ public class LivroController implements GenericController{
         //RETORNAR CODIGO CREATED COM HEADER LOCATION
         return ResponseEntity.created(uri).build();
 
+    }
+
+    @GetMapping("{id}")
+    public ResponseEntity<LivroResponseDTO> obterDetalhes(@PathVariable("id") String id) {
+        var idLivro = UUID.fromString(id);
+
+        return livroService
+                .buscarLivro(idLivro)
+                .map(livro -> {
+                    LivroResponseDTO livroResponseDTO = livroMapper.toDTO(livro);
+                    return ResponseEntity.ok(livroResponseDTO);
+                }).orElseGet(() -> ResponseEntity.notFound().build());
     }
 }

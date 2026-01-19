@@ -7,7 +7,7 @@ import io.github.thaisazuoss.libraryapi.model.Autor;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(componentModel =  "spring")
+@Mapper(componentModel =  "spring", uses = AutorMapper.class)
 public interface AutorMapper {
 
     //exemplo de mapeamento quando o nome da propriedade do DTO
