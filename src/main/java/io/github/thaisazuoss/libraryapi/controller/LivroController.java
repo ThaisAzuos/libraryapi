@@ -6,6 +6,7 @@ import io.github.thaisazuoss.libraryapi.controller.dto.response.ErroResposta;
 import io.github.thaisazuoss.libraryapi.controller.dto.response.LivroResponseDTO;
 import io.github.thaisazuoss.libraryapi.controller.mappers.LivroMapper;
 import io.github.thaisazuoss.libraryapi.exceptions.RegistroDuplicadoException;
+import io.github.thaisazuoss.libraryapi.model.Autor;
 import io.github.thaisazuoss.libraryapi.model.Livro;
 import io.github.thaisazuoss.libraryapi.service.LivroService;
 import jakarta.validation.Valid;
@@ -14,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -51,5 +53,19 @@ public class LivroController implements GenericController{
                     LivroResponseDTO livroResponseDTO = livroMapper.toDTO(livro);
                     return ResponseEntity.ok(livroResponseDTO);
                 }).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<?> deletar(@PathVariable("id") String id){
+
+        var idLivro = UUID.fromString(id);
+
+        return livroService
+                .buscarLivro(idLivro)
+                .map(livro -> {
+                    livroService.deletar(livro);
+                    return  ResponseEntity.noContent().build();
+                }).orElseGet(() -> ResponseEntity.notFound().build());
+
     }
 }
