@@ -42,7 +42,7 @@ public class Livro {
     @Column(name = "preco", precision = 18, scale = 2)
     private BigDecimal preco;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne//(fetch = FetchType.LAZY)
     //(fetch = FetchType.EAGER) - é o padrão
     //(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_autor")

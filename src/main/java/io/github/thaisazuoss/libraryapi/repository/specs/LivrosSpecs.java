@@ -20,4 +20,10 @@ public class LivrosSpecs {
         return (root, query, criteriaBuilder) ->
                 criteriaBuilder.equal(root.get("genero"), genero);
     }
+
+    public static Specification<Livro> anoPublicacaoEqual(Integer anoPublicacao){
+        return (root, query, criteriaBuilder) ->
+                criteriaBuilder.equal(criteriaBuilder.function("to_char", String.class,
+                        root.get("dataPublicacao"), criteriaBuilder.literal("YYYY")), anoPublicacao.toString());
+    }
 }
