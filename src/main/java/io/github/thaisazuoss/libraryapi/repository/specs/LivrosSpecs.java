@@ -2,6 +2,8 @@ package io.github.thaisazuoss.libraryapi.repository.specs;
 
 import io.github.thaisazuoss.libraryapi.model.GeneroLivro;
 import io.github.thaisazuoss.libraryapi.model.Livro;
+import jakarta.persistence.criteria.Join;
+import jakarta.persistence.criteria.JoinType;
 import org.springframework.data.jpa.domain.Specification;
 
 public class LivrosSpecs {
@@ -25,5 +27,15 @@ public class LivrosSpecs {
         return (root, query, criteriaBuilder) ->
                 criteriaBuilder.equal(criteriaBuilder.function("to_char", String.class,
                         root.get("dataPublicacao"), criteriaBuilder.literal("YYYY")), anoPublicacao.toString());
+    }
+
+    public static Specification<Livro> nomeAutorLike(String nome){
+        return (root, query, criteriaBuilder) ->{
+            Join<Object, Object> joinAutor = root.join("autor", JoinType.INNER);
+            return criteriaBuilder.like(criteriaBuilder.upper(joinAutor.get("nome")), "%" + nome.toUpperCase() + "%");
+//            return criteriaBuilder.like(criteriaBuilder.upper(root.get("autor").get("nome")), "%" + nome.toUpperCase() + "%");
+
+        };
+
     }
 }
