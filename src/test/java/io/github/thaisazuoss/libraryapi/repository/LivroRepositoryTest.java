@@ -114,9 +114,10 @@ class LivroRepositoryTest {
     void pesquisarPorIsbnTest(){
 
         String isbn = "9788594318603";
-        List<Livro> livros = livroRepository.findByIsbn(isbn);
+        Optional<Livro> livro = livroRepository.findByIsbn(isbn);
 
-        livros.forEach(System.out::println);
+        livro.isPresent(System.out::println);
+        
 
     }
 

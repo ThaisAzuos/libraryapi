@@ -4,6 +4,7 @@ import io.github.thaisazuoss.libraryapi.model.GeneroLivro;
 import io.github.thaisazuoss.libraryapi.model.Livro;
 import io.github.thaisazuoss.libraryapi.repository.LivroRepository;
 import io.github.thaisazuoss.libraryapi.repository.specs.LivrosSpecs;
+import io.github.thaisazuoss.libraryapi.validator.LivroValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -19,12 +20,16 @@ import static io.github.thaisazuoss.libraryapi.repository.specs.LivrosSpecs.*;
 public class LivroService {
 
     private final LivroRepository livroRepository;
+    private final LivroValidator livroValidator;
 
     public Livro salvar(Livro livro) {
+
+        livroValidator.validar(livro);
         return livroRepository.save(livro);
     }
 
     public Optional<Livro> buscarLivro(UUID idLivro) {
+
         return livroRepository.findById(idLivro);
     }
 
@@ -66,6 +71,7 @@ public class LivroService {
         if (livro.getId() == null){
             throw new IllegalArgumentException("Não é possível atualizar um livro que não existe na base!");
         }
+        livroValidator.validar(livro);
         livroRepository.save(livro);
     }
 }
